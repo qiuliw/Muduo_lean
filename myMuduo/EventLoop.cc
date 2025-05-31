@@ -104,6 +104,15 @@ void EventLoop::loop(){
 }
 
 
+/*
+    mainloop
+
+            no ======= 生产者-消费者的线程安全的队列
+
+    subloop1 subloop2 subloop3
+*/
+
+
 // 退出事件循环
 void EventLoop::quit(){
     quit_ = true;
