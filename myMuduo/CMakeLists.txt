@@ -13,4 +13,4 @@ aux_source_directory(. SRC_LIST)
 add_library(myMuduo SHARED ${SRC_LIST})
 
 # 设置最终编译成的库的路径
-set(LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

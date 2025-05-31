@@ -1,10 +1,9 @@
-// Timestamp 时间戳
-
 #pragma once
 
-#include <iostream>
-#include <string.h>
+#include <cstdint>
+#include <string>
 
+// Timestamp 时间戳
 class Timestamp{
 public:
     Timestamp();

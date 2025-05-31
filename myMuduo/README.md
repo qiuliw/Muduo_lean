@@ -2,6 +2,13 @@
 
 留档
 
+![alt text](./assets/image2.png)
+
+![alt text](./assets/image3.png)
+
+图中每个subReactor都是一个EventLoop
+
+
 ## 宏的高级用法
 ```cpp
 // LOGINFO("%s %d", arg1, arg2)
@@ -47,3 +54,8 @@ do \
 
 在 C/C++ 宏定义中，**反斜杠 `\`（续行符）** 的作用是 **让宏定义跨越多行**，使其在语法上看起来像一行代码。  
  
+ ## EventLoop
+
+ ![alt text](./assets/image.png)
+
+![alt text](./assets/image4.png)

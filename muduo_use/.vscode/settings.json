@@ -1,0 +1,5 @@
+{
+    "editor.scrollbar.vertical": "visible",
+    "editor.scrollbar.ignoreHorizontalScrollbarInContentHeight": true,
+    "editor.scrollbar.scrollByPage": true
+}
