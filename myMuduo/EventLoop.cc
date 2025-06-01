@@ -67,7 +67,7 @@ void EventLoop::handleRead(){
     uint64_t one = 1;
     ssize_t n = read(wakeupFd_,&one,sizeof one);
     if(n != sizeof one){
-        LOG_ERROR("EventLoop::handleRead() reads %d",n); 
+        LOG_ERROR("EventLoop::handleRead() reads %ld",n); 
     }
 }
 

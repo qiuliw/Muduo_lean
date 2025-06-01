@@ -1,5 +1,3 @@
-#pragma once
-
 #include "EventLoopThread.h"
 #include "EventLoop.h"
 #include "Thread.h"
