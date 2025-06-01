@@ -3,7 +3,7 @@
 #include <cstdio>
 #include <string>
 
-#include "nocopyable.h"
+#include "noncopyable.h"
 
 // LOGINFO("%s %d", arg1, arg2)
 #define LOG_INFO(logmsgFormat, ...) \

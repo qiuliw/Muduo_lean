@@ -2,7 +2,7 @@
 
 #include "Channel.h"
 #include "Timestamp.h"
-#include "nocopyable.h"
+#include "noncopyable.h"
 
 #include <unordered_map>
 #include <vector>
