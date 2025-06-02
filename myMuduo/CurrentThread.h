@@ -3,6 +3,7 @@
 #include <sys/syscall.h>
 #include <unistd.h>
 
+// 返回当前线程的tid 工具类
 namespace CurentThreead 
 {
     //线程 唯一的变量
