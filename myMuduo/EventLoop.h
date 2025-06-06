@@ -17,6 +17,9 @@ class Poller;
 
 // at most one per thread
 // 事件循环类 主要包含了两个大模块 Channal Poller(epoll的抽象)
+
+// 扮演Ractor反应器（事件反应器），从事件分发器中接受IO事件，创建新线程去执行channel事件回调
+// 其同时也会创建一个Poller对象(事件分发器)，Poller对象负责监听Channel的IO事件
 class EventLoop : noncopyable
 {
 public:
@@ -34,9 +37,10 @@ public:
         return pollReturnTime_;
     }
 
-    // 在当前loop中执行cb
+    // 在当前loop对象绑定的线程中执行cb
     void runInLoop(Functor cb);
-    // 把cb放入队列中，唤醒loop所在的线程执行cb
+    // 把cb放入队列中，唤醒loop所在的线程执行cb，当前函数调用对象不在自身线程，唤醒自身线程去执行
+    // 不在创建实例的线程内被调用，唤醒创建实例的线程
     void queueInLoop(Functor cb);
 
     // 唤醒loop所在的线程
@@ -55,7 +59,7 @@ public:
 
 private:
 
-    void handleRead(); // wakeup
+    void handleRead(); // wakeup的回调
     void doPendingFunctors(); // 执行回调
 
 

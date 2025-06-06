@@ -13,6 +13,8 @@
     epoll_ctl add/mod/del
     epoll_wait
 */
+
+// 事件分发器，相当于 epoll的封装,专门用于监听注册其上的channel_fd的IO事件，通知 Ractor 反应器去处理
 class EPollPoller : public Poller
 {
 public:

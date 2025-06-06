@@ -117,14 +117,13 @@ void EventLoop::loop(){
 void EventLoop::quit(){
     quit_ = true;
 
-    // 如果在本线程中，调用其他线程的quit
-    // 马上唤醒其他线程退出
+    // 如果在不本线程中，马上唤醒其他线程退出，while(quit_)的quit是线程共享的
     if(!isInLoopThread()){
         wakeup();
     }
 }
 
-// 执行cb
+// 指定EventLoop所绑定的线程执行cb
 void EventLoop::runInLoop(Functor cb){
     // loop.runInLoop 在当前loop线程中，执行cb
     if(isInLoopThread()){
@@ -134,8 +133,9 @@ void EventLoop::runInLoop(Functor cb){
     }
 }
 
-// 把cb放入队列中，唤醒loop所在的线程，执行cb
+// 把cb放入队列中，唤醒loop所绑定的线程，执行cb
 void EventLoop::queueInLoop(Functor cb){
+    // pendingFunctors_是线程间共享的
     {
         std::unique_lock<std::mutex> lokc(mutex_);
         // 用于在容器的尾部直接构造一个元素，右值会直接调用移动构造
@@ -143,8 +143,7 @@ void EventLoop::queueInLoop(Functor cb){
     }
 
     // #1 obj1{obj2->loop->queueInloop}在obj1线程中调用obj2 loop obj1唤醒obj2去执行回调 
-    // #2 本线程在dopendingfunctor()执行回调中，其他线程调用queueInLoop()为本线程添加了其他回调任务，
-    //      则本线程需要在下次循环中唤醒去执行，为epoll添加事件避免阻塞
+    // #2 本线程在dopendingfunctor()执行回调中，其他线程调用queueInLoop()为本线程添加了其他回调任务，则本线程需要在下次epoll循环中唤醒去执行，为epoll添加事件避免阻塞
     if(!isInLoopThread() || callingPendingFunctors_){
         // callingPendingFunctors_ 逻辑待解释
         wakeup(); // 唤醒loop所在线程

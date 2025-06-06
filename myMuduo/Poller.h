@@ -28,6 +28,7 @@ public:
 
     // 工厂类，返回具体实现的实例
     // EventLoop可以通过该接口获取默认的IO复用的具体实现
+    // 静态工厂类，不需要类实例化，返回具体的Poller实现类对象
     static Poller* newDefaultPoller(EventLoop *loop);
 
 protected:
