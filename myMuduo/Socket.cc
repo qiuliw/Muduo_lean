@@ -41,6 +41,7 @@ int Socket::accept(InetAddress *peeraddr)
     return connfd;
 }
 
+
 void Socket::shutdownWrite() // 半关闭
 {
     if(::shutdown(sockfd_, SHUT_WR) < 0){

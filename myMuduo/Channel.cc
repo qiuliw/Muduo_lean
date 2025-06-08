@@ -60,7 +60,7 @@ void Channel::handleEvent(Timestamp receiveTime){
 void Channel::handleEventWithGuard(Timestamp receiveTime)
 {
     if((revents_ & EPOLLHUP) && !(revents_ & EPOLLIN)){
-        // 处理对端关闭且没有数据可读的情况
+        // 处理半连接状态且没有数据可读的情况
         if(closeCallback_){
             closeCallback_();
         }

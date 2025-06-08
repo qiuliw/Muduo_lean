@@ -125,7 +125,7 @@ void EventLoop::quit(){
 
 // 指定EventLoop所绑定的线程执行cb
 void EventLoop::runInLoop(Functor cb){
-    // loop.runInLoop 在当前loop线程中，执行cb
+    // loop.runInLoop 在当前线程中，直接执行cb，不论所属loop线程
     if(isInLoopThread()){
         cb();
     }else{ // 在非当前loop线程中执行cb，就需要唤醒loop所在线程，执行cb

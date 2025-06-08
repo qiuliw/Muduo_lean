@@ -1,6 +1,7 @@
 #include "Buffer.h"
 
 #include <sys/uio.h>
+#include <unistd.h>
 
 // 从流式管道fd读取数据
 // 从fd中读取数据，Poller工作在LT模式下
@@ -27,9 +28,18 @@ ssize_t Buffer::readFd(int fd, int *saveErrno)
         writerIndex_ += n;
     }else{ //extraBuf也写入了数据
         writerIndex_ = buffer_.size();
-        append(extrabuf, n - writable);
+        append(extrabuf, n - writable); // 添加到Buffer的末尾
     }
 
     return n;
+}
 
+
+ssize_t Buffer::writeFd(int fd, int *saveErrno)
+{
+    ssize_t n = ::write(fd,peek(),readableBytes());
+    if(n < 0){
+        *saveErrno = errno;
+    }
+    return n;
 }

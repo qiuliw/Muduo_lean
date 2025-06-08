@@ -2,6 +2,8 @@
 
 留档
 
+> 可以使用lambda完全代替bind
+
 ![alt text](./assets/image2.png)
 
 ![alt text](./assets/image3.png)

@@ -124,6 +124,9 @@ public:
 
     //  从fd上读取数据
     ssize_t readFd(int fd, int *saveErrno);
+    // 从fd上写数据
+    ssize_t writeFd(int fd, int *saveErrno);    
+
 private:
     // 缓冲区起始位置
     char* begin() {
