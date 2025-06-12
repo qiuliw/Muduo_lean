@@ -64,11 +64,6 @@ TcpConnection::~TcpConnection()
     LOG_INFO("TcpConnection::dtor[%s] at fd=%d state=%d\n", name_.c_str(), channel_->fd(), static_cast<int>(state_));
 }
 
-
-
-
-
-
 void TcpConnection::handleRead(Timestamp receiveTime)
 {
     int savedErrno = 0;

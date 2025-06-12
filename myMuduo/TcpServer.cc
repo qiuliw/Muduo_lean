@@ -8,6 +8,7 @@
 #include <cstddef>
 #include <cstdio>
 #include <strings.h>
+#include "Buffer.h"
 
 
 // #x 替换为 x 的字面量字符串 "x"  例如 x是ptr，则#x会被替换为 "ptr"
@@ -32,6 +33,7 @@ TcpServer::TcpServer(EventLoop *loop,
     , connectionCallback_()
     , messageCallback_()
     , nextConnId_(1)
+    , started_(0)
 {
     // 当有新用户连接时，会执行TcpServer::newConnection方法回调
     acceptor_->setNewConnectionCallback(

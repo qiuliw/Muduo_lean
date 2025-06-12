@@ -144,7 +144,6 @@ void EPollPoller::update(int operation,Channel* channel){
     event.events = channel->events(); // 绑定感兴趣的事件
     event.data.ptr= channel; // 绑定关联的channel
     int fd = channel->fd(); // 指定fd
-    event.data.fd = fd;
     if(::epoll_ctl(epollfd_, operation,fd, &event) < 0){
         if(operation == EPOLL_CTL_DEL){
             LOG_ERROR("epoll_ctl del error:%d\n",errno);

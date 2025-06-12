@@ -16,6 +16,8 @@
 #include "InetAddress.h"
 #include "Socket.h"
 #include "noncopyable.h"
+#include "TcpConnection.h"
+#include "Buffer.h"
 
 // 对外的服务器编程使用的类
 

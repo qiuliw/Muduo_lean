@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <fcntl.h>
 
 Socket::~Socket()
 {
@@ -31,12 +32,29 @@ void Socket::listen()
 
 int Socket::accept(InetAddress *peeraddr)
 {
+    /**
+        1. accept参数不合法
+        2. 对返回的connfd没有设置非阻塞
+    */
+
     sockaddr_in addr;
-    socklen_t len;
+    socklen_t len = sizeof addr;
     bzero(&addr, sizeof addr);
     int connfd = ::accept(sockfd_, (sockaddr*)&addr, &len);
     if(connfd >=0){
         peeraddr->setSockAddr(addr); // 将客户端的地址传出
+
+        // 设置 connfd 为非阻塞模式
+        int flags = fcntl(connfd, F_GETFL, 0); //  获取文件描述符的当前属性
+        flags |= O_NONBLOCK; // 设置为非阻塞模式
+        int  ret = fcntl(connfd, F_SETFL, flags); //  设置文件描述符的属性
+
+        // close-on-exec 子进程不继承fd,fd自动释放。mainloop执行
+        flags = fcntl(connfd, F_GETFD, 0); // 获取文件描述符的close-on-exec属性
+        flags |= FD_CLOEXEC; // 设置文件描述符为 close-on-exec
+        ret = fcntl(connfd, F_SETFD, flags); //  设置文件描述符的close-on-exec属性
+
+
     }
     return connfd;
 }
