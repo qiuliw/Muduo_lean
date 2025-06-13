@@ -32,6 +32,8 @@ class Socket;
 
 
 // Acceptor和TcpConnect都是将逻辑细化注册到channel中，TcpConnection负责处理Tcp连接。
+
+// 一个连接成功的客户端对应一个TcpConnection Socket Channel 各种回调 发送和接受数据 Buffer。属于上层对连接的管理
 class TcpConnection : noncopyable
                         , public std::enable_shared_from_this<TcpConnection>
 {
